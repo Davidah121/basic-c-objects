@@ -56,9 +56,16 @@ void AddObject(struct ObjectContainer* obj)
     if(end == NULL)
         end = &head;
     
-    struct StackObjectNode* newNode = malloc(sizeof(struct StackObjectNode));
+    struct StackObjectNode* newNode = (struct StackObjectNode*)malloc(sizeof(struct StackObjectNode));
     newNode->objContainerPtr = obj;
     newNode->objStackDepth = objStackDepth;
     newNode->prev = end;
     end = newNode;
+}
+
+void SetupObject(struct ObjectContainer* objContainer, void* objPtr, void(*destructor)(void*))
+{
+    objContainer->objectPtr = objPtr;
+    objContainer->destructor = destructor;
+    AddObject(objContainer);
 }

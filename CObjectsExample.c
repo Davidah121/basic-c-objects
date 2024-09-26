@@ -17,11 +17,9 @@ void DestroyTestObject(void* o)
 void CreateTestObject(struct TestObject* obj)
 {
     printf("In Constructor of TestObject\n");
-    obj->objInfo.objectPtr = obj;
-    obj->objInfo.destructor = DestroyTestObject;
     obj->x = 0;
     obj->y = 2;
-    AddObject((struct ObjectContainer*)obj);
+    SetupObject(&(obj->objInfo), obj, DestroyTestObject);
 }
 
 int main()
